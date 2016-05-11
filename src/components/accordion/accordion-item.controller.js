@@ -35,7 +35,7 @@ export default class ScAccordionItemCtrl {
         this.parent.register(this);
         this.$scope.$on('$destroy', () => this.parent.unregister(this));
 
-        if(this.default) {
+        if (this.default) {
             this.toggle();
         }
     }
@@ -57,7 +57,7 @@ export default class ScAccordionItemCtrl {
      * @description Open the accordion.
      */
     open() {
-        if(this.opened) {
+        if (this.opened) {
             return;
         }
         this.opened = true;

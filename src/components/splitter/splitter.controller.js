@@ -1,15 +1,15 @@
 /*  ============================================================================
 
-  Copyright (C) 2006-2016 Talend Inc. - www.talend.com
+ Copyright (C) 2006-2016 Talend Inc. - www.talend.com
 
-  This source code is available under agreement available at
-  https://github.com/Talend/data-prep/blob/master/LICENSE
+ This source code is available under agreement available at
+ https://github.com/Talend/data-prep/blob/master/LICENSE
 
-  You should have received a copy of the agreement
-  along with this program; if not, write to Talend SA
-  9 rue Pages 92150 Suresnes, France
+ You should have received a copy of the agreement
+ along with this program; if not, write to Talend SA
+ 9 rue Pages 92150 Suresnes, France
 
-  ============================================================================*/
+ ============================================================================*/
 
 /**
  * @ngdoc controller
@@ -39,8 +39,12 @@ export default class ScSplitterCtrl {
     }
 
     attachListeners() {
-        const startDrag = () => { this.drag = true };
-        const stopDrag = () => { this.drag = false };
+        const startDrag = () => {
+            this.drag = true;
+        };
+        const stopDrag = () => {
+            this.drag = false;
+        };
 
         this.$element.on('mousemove', (event) => {
             if (!this.drag) {
@@ -66,9 +70,9 @@ export default class ScSplitterCtrl {
                 return;
             }
 
-            this.firstPane.css('bottom', (bounds.height - pos) + 'px');
-            this.splitHandler.css('top', pos + 'px');
-            this.secondPane.css('top', (pos + this.splitHandlerSize) + 'px');
+            this.firstPane.css('bottom', `${bounds.height - pos}px`);
+            this.splitHandler.css('top', `${pos}px`);
+            this.secondPane.css('top', `${pos + this.splitHandlerSize}px`);
         }
         else {
             this.splitHandlerSize = this.splitHandlerSize || this.splitHandler[0].offsetWidth;
@@ -78,9 +82,9 @@ export default class ScSplitterCtrl {
                 return;
             }
 
-            this.firstPane.css('right', (bounds.width - pos) + 'px');
-            this.splitHandler.css('left', pos + 'px');
-            this.secondPane.css('left', (pos + this.splitHandlerSize) + 'px');
+            this.firstPane.css('right', `${bounds.width - pos}px`);
+            this.splitHandler.css('left', `${pos}px`);
+            this.secondPane.css('left', `${pos + this.splitHandlerSize}px`);
         }
     }
 }

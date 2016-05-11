@@ -43,6 +43,8 @@ export default class ScDropdownMenuCtrl {
     }
 
     _hideMenu() {
-        this.$timeout(() => this.visible = false);
+        this.$timeout(() => {
+            this.visible = false;
+        });
     }
 }
