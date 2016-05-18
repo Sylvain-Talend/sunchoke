@@ -18,9 +18,7 @@
  */
 export default class ScAccordionItemCtrl {
 
-    constructor($scope) {
-        'ngInject';
-        this.$scope = $scope;
+    constructor() {
         /**
          * @ngdoc property
          * @name active
@@ -33,11 +31,13 @@ export default class ScAccordionItemCtrl {
 
     $onInit() {
         this.parent.register(this);
-        this.$scope.$on('$destroy', () => this.parent.unregister(this));
-
         if(this.default) {
             this.toggle();
         }
+    }
+    
+    $onDestroy() {
+        this.parent.unregister(this);
     }
 
     /**

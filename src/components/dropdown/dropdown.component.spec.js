@@ -32,7 +32,7 @@ describe('Dropdown component', () => {
     });
 
     beforeEach(inject(($rootScope, $compile) => {
-        scope = $rootScope.$new();
+        scope = $rootScope.$new(true);
         scope.onOpen = jasmine.createSpy('onOpen');
 
         createElement = () => {

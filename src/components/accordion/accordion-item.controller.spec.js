@@ -138,7 +138,7 @@ describe('Accordion item component controller', () => {
             expect(parent.unregister).not.toHaveBeenCalled();
 
             //when
-            scope.$destroy();
+            ctrl.$onDestroy();
 
             //then
             expect(parent.unregister).toHaveBeenCalledWith(ctrl);

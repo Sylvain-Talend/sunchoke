@@ -17,7 +17,7 @@ describe('Splitter component', () => {
     beforeEach(angular.mock.module('talend.sunchoke.splitter'));
 
     beforeEach(inject(($rootScope, $compile) => {
-        scope = $rootScope.$new();
+        scope = $rootScope.$new(true);
 
         createElement = () => {
             const template =
