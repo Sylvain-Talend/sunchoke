@@ -59,6 +59,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="../splitter/" />
+    
     
     <link rel="prev" href="./" />
     
@@ -211,9 +213,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="../horizontal-barchart/">
+        <li class="chapter " data-level="1.6" data-path="./">
             
-                <a href="../horizontal-barchart/">
+                <a href="./">
             
                     
                     Horizontal barchart
@@ -225,9 +227,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.6.1" data-path="../horizontal-barchart/documentation.html">
+        <li class="chapter active" data-level="1.6.1" data-path="documentation.html">
             
-                <a href="../horizontal-barchart/documentation.html">
+                <a href="documentation.html">
             
                     
                     Documentation
@@ -307,9 +309,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.9" data-path="./">
+        <li class="chapter " data-level="1.9" data-path="../vertical-barchart/">
             
-                <a href="./">
+                <a href="../vertical-barchart/">
             
                     
                     Vertical barchart
@@ -321,9 +323,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="1.9.1" data-path="documentation.html">
+        <li class="chapter " data-level="1.9.1" data-path="../vertical-barchart/documentation.html">
             
-                <a href="documentation.html">
+                <a href="../vertical-barchart/documentation.html">
             
                     
                     Documentation
@@ -384,29 +386,21 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="vertical-barchart-documentation">Vertical barchart Documentation</h1>
+                                <h1 id="horizontal-barchart-documentation">Horizontal barchart Documentation</h1>
 <h3 id="usage">Usage</h3>
-<pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-name">sc-vertical-barchart</span>
-        <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;vBarChart&quot;</span> 
-        <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;300&quot;</span>
-        <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;250&quot;</span>
-        <span class="hljs-attr">key-field</span>=<span class="hljs-string">&quot;data&quot;</span>
-        <span class="hljs-attr">key-label</span>=<span class="hljs-string">&quot;Occurrences&quot;</span>    
-        <span class="hljs-attr">primary-data</span>=<span class="hljs-string">[</span>
-            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:1</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:257</span>},&quot;<span class="hljs-attr">occurrences</span>&quot;<span class="hljs-attr">:50</span>},
-            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:257</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:513</span>},&quot;<span class="hljs-attr">occurrences</span>&quot;<span class="hljs-attr">:100</span>},
-        ]
-        <span class="hljs-attr">primary-value-field</span>=<span class="hljs-string">&quot;occurrences&quot;</span>
-        <span class="hljs-attr">primary-bar-class</span>=<span class="hljs-string">&quot;&quot;</span>
-        <span class="hljs-attr">secondary-data</span>=<span class="hljs-string">[</span>
-            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:1</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:257</span>},&quot;<span class="hljs-attr">filteredOccurrences</span>&quot;<span class="hljs-attr">:120</span>},
-            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:257</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:513</span>},&quot;<span class="hljs-attr">filteredOccurrences</span>&quot;<span class="hljs-attr">:50</span>},
-            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:513</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:769</span>},&quot;<span class="hljs-attr">filteredOccurrences</span>&quot;<span class="hljs-attr">:150</span>}
-        ]
-        <span class="hljs-attr">secondary-value-field</span>=<span class="hljs-string">&quot;filteredOccurrences&quot;</span>
-        <span class="hljs-attr">secondary-bar-class</span>=<span class="hljs-string">&quot;blueBar&quot;</span>
-    &gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">sc-vertical-barchart</span>&gt;</span>
+<pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-name">sc-horizontal-barchart</span>&gt;</span>
+        width=&quot;300&quot;
+        height=&quot;400&quot;
+        key-field=&quot;formattedValue&quot;
+        key-label=&quot;Occurrences&quot;
+        primary-data=[{&quot;formattedValue&quot;:&quot;male&quot;,&quot;occurrences&quot;:6,&quot;data&quot;:&quot;male&quot;},{&quot;formattedValue&quot;:&quot;female&quot;,&quot;occurrences&quot;:3,&quot;data&quot;:&quot;female&quot;}]
+        primary-value-field=&quot;occurrences&quot;
+        primary-bar-class=&quot;&quot;
+        secondary-data=[{&quot;formattedValue&quot;:&quot;male&quot;,&quot;filteredOccurrences&quot;:4},{&quot;formattedValue&quot;:&quot;female&quot;,&quot;filteredOccurrences&quot;:2}]
+        secondary-value-field=&quot;filteredOccurrences&quot;
+        secondary-bar-class=&quot;blueBar&quot;
+        tooltip-content=&quot;MyCtrl.getTooltip(keyLabel, key, primaryValue, secondaryValue)&quot;&gt;
+    <span class="hljs-tag">&lt;/<span class="hljs-name">sc-horizontal-barchart</span>&gt;</span>
 </code></pre>
 <h3 id="inputs">Inputs</h3>
 <table>
@@ -423,82 +417,110 @@
 <tr>
 <td>id</td>
 <td>string</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>the chart&apos;s id</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>chart class identifier. Mandatory</td>
 </tr>
 <tr>
 <td>width</td>
 <td>number</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>the chart&apos;s width)</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>chart width. Mandatory</td>
 </tr>
 <tr>
 <td>height</td>
 <td>number</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>the chart&apos;s height</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>chart height. Mandatory</td>
 </tr>
 <tr>
 <td>key-field</td>
 <td>string</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>Key of the represented data</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>key field</td>
 </tr>
 <tr>
 <td>key-label</td>
 <td>string</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>Label of the data represented by the primary data array</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>key label</td>
 </tr>
 <tr>
 <td>primary-data</td>
-<td>array</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>Array containing the main data</td>
+<td>json</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>primary data</td>
 </tr>
 <tr>
 <td>primary-value-field</td>
 <td>string</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>Key of the value in the main data array</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>primary value field</td>
 </tr>
 <tr>
 <td>primary-bar-class</td>
 <td>string</td>
-<td>sc-vertical-barchart</td>
-<td>bar</td>
-<td>Class applied to the main vertical bar</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>primary css bar class</td>
 </tr>
 <tr>
 <td>secondary-data</td>
-<td>array</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>Array containing the filtered data</td>
+<td>json</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>secondary-data=</td>
 </tr>
 <tr>
 <td>secondary-value-field</td>
 <td>string</td>
-<td>sc-vertical-barchart</td>
-<td></td>
-<td>Key of the value in the secondary data array</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>secondary value field</td>
 </tr>
 <tr>
 <td>secondary-bar-class</td>
 <td>string</td>
-<td>sc-vertical-barchart</td>
-<td>blueBar</td>
-<td>Class applied to the secondary vertical bar</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>secondary css bar class</td>
+</tr>
+<tr>
+<td>tooltip-content=</td>
+<td>string</td>
+<td>sc-horizontal-barchart</td>
+<td>0</td>
+<td>tooltip content</td>
 </tr>
 </tbody>
 </table>
+<h3 id="outputs">Outputs</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Element</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>on-click</td>
+<td>function</td>
+<td>sc-horizontal-barchart</td>
+<td>click on bar chart</td>
+</tr>
+</tbody>
+</table>
+<h3 id="transclusion">Transclusion</h3>
+<p>No transclusion</p>
 
                                 
                                 </section>
@@ -526,10 +548,14 @@
 
             
                 
-                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Vertical barchart">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: Horizontal barchart">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
+                
+                <a href="../splitter/" class="navigation navigation-next " aria-label="Next page: Splitter">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -538,7 +564,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Documentation","level":"1.9.1","depth":2,"previous":{"title":"Vertical barchart","level":"1.9","depth":1,"path":"vertical-barchart/README.md","ref":"vertical-barchart/README.md","articles":[{"title":"Documentation","level":"1.9.1","depth":2,"path":"vertical-barchart/documentation.md","ref":"vertical-barchart/documentation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["codepen"],"pluginsConfig":{"codepen":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"vertical-barchart/documentation.md","mtime":"2016-06-13T10:22:07.813Z","type":"markdown"},"gitbook":{"version":"3.1.0","time":"2016-06-13T10:24:15.864Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Documentation","level":"1.6.1","depth":2,"next":{"title":"Splitter","level":"1.7","depth":1,"path":"splitter/README.md","ref":"splitter/README.md","articles":[{"title":"Documentation","level":"1.7.1","depth":2,"path":"splitter/documentation.md","ref":"splitter/documentation.md","articles":[]}]},"previous":{"title":"Horizontal barchart","level":"1.6","depth":1,"path":"horizontal-barchart/README.md","ref":"horizontal-barchart/README.md","articles":[{"title":"Documentation","level":"1.6.1","depth":2,"path":"horizontal-barchart/documentation.md","ref":"horizontal-barchart/documentation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["codepen"],"pluginsConfig":{"codepen":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"horizontal-barchart/documentation.md","mtime":"2016-06-13T10:23:55.134Z","type":"markdown"},"gitbook":{"version":"3.1.0","time":"2016-06-13T10:24:15.864Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
