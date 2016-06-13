@@ -1,7 +1,8 @@
+
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Dropdown · GitBook</title>
+        <title>Documentation · GitBook</title>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -58,10 +59,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="documentation.html" />
     
-    
-    <link rel="prev" href="../color/" />
+    <link rel="prev" href="./" />
     
 
     </head>
@@ -148,9 +147,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.4" data-path="./">
+        <li class="chapter " data-level="1.4" data-path="../dropdown/">
             
-                <a href="./">
+                <a href="../dropdown/">
             
                     
                     Dropdown
@@ -162,9 +161,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.4.1" data-path="documentation.html">
+        <li class="chapter " data-level="1.4.1" data-path="../dropdown/documentation.html">
             
-                <a href="documentation.html">
+                <a href="../dropdown/documentation.html">
             
                     
                     Documentation
@@ -276,9 +275,9 @@
             
         </li>
     
-        <li class="chapter " data-level="1.8" data-path="../vertical-barchart/">
+        <li class="chapter " data-level="1.8" data-path="./">
             
-                <a href="../vertical-barchart/">
+                <a href="./">
             
                     
                     Vertical barchart
@@ -290,9 +289,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.8.1" data-path="../vertical-barchart/documentation.html">
+        <li class="chapter active" data-level="1.8.1" data-path="documentation.html">
             
-                <a href="../vertical-barchart/documentation.html">
+                <a href="documentation.html">
             
                     
                     Documentation
@@ -338,7 +337,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Dropdown</a>
+        <a href=".." >Documentation</a>
     </h1>
 </div>
 
@@ -353,9 +352,121 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="dropdown">Dropdown</h1>
-<p>The Dropdown widget is a dropdown box. When the user click on it, a hidden dropdown appears.</p>
-<p></p><p data-height="700" data-theme-id="0" data-slug-hash="grezaW" data-default-tab="result" data-user="jso-technologies" class="codepen">See the Pen <a href="http://codepen.io/jso-technologies/pen/grezaW/" _target="blank"></a> by jso-technologies (<a href="http://codepen.io/jso-technologies" _target="blank">@jso-technologies</a>) on <a href="http://codepen.io" _target="blank">CodePen</a>.</p><p></p>
+                                <h1 id="vertical-barchart-documentation">Vertical barchart Documentation</h1>
+<h3 id="usage">Usage</h3>
+<pre><code class="lang-html">    <span class="hljs-tag">&lt;<span class="hljs-name">sc-vertical-barchart</span>
+        <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;vBarChart&quot;</span> 
+        <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;300&quot;</span>
+        <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;250&quot;</span>
+        <span class="hljs-attr">key-field</span>=<span class="hljs-string">&quot;data&quot;</span>
+        <span class="hljs-attr">key-label</span>=<span class="hljs-string">&quot;Occurrences&quot;</span>    
+        <span class="hljs-attr">primary-data</span>=<span class="hljs-string">[</span>
+            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:1</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:257</span>},&quot;<span class="hljs-attr">occurrences</span>&quot;<span class="hljs-attr">:50</span>},
+            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:257</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:513</span>},&quot;<span class="hljs-attr">occurrences</span>&quot;<span class="hljs-attr">:100</span>},
+        ]
+        <span class="hljs-attr">primary-value-field</span>=<span class="hljs-string">&quot;occurrences&quot;</span>
+        <span class="hljs-attr">primary-bar-class</span>=<span class="hljs-string">&quot;&quot;</span>
+        <span class="hljs-attr">secondary-data</span>=<span class="hljs-string">[</span>
+            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:1</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:257</span>},&quot;<span class="hljs-attr">filteredOccurrences</span>&quot;<span class="hljs-attr">:120</span>},
+            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:257</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:513</span>},&quot;<span class="hljs-attr">filteredOccurrences</span>&quot;<span class="hljs-attr">:50</span>},
+            {&quot;<span class="hljs-attr">data</span>&quot;<span class="hljs-attr">:</span>{&quot;<span class="hljs-attr">type</span>&quot;<span class="hljs-attr">:</span>&quot;<span class="hljs-attr">number</span>&quot;,&quot;<span class="hljs-attr">min</span>&quot;<span class="hljs-attr">:513</span>,&quot;<span class="hljs-attr">max</span>&quot;<span class="hljs-attr">:769</span>},&quot;<span class="hljs-attr">filteredOccurrences</span>&quot;<span class="hljs-attr">:150</span>}
+        ]
+        <span class="hljs-attr">secondary-value-field</span>=<span class="hljs-string">&quot;filteredOccurrences&quot;</span>
+        <span class="hljs-attr">secondary-bar-class</span>=<span class="hljs-string">&quot;blueBar&quot;</span>
+    &gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">sc-vertical-barchart</span>&gt;</span>
+</code></pre>
+<h3 id="inputs">Inputs</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Element</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>the chart&apos;s id</td>
+</tr>
+<tr>
+<td>width</td>
+<td>number</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>the chart&apos;s width)</td>
+</tr>
+<tr>
+<td>height</td>
+<td>number</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>the chart&apos;s height</td>
+</tr>
+<tr>
+<td>key-field</td>
+<td>string</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>Key of the represented data</td>
+</tr>
+<tr>
+<td>key-label</td>
+<td>string</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>Label of the data represented by the primary data array</td>
+</tr>
+<tr>
+<td>primary-data</td>
+<td>array</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>Array containing the main data</td>
+</tr>
+<tr>
+<td>primary-value-field</td>
+<td>string</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>Key of the value in the main data array</td>
+</tr>
+<tr>
+<td>primary-bar-class</td>
+<td>string</td>
+<td>sc-vertical-barchart</td>
+<td>bar</td>
+<td>Class applied to the main vertical bar</td>
+</tr>
+<tr>
+<td>secondary-data</td>
+<td>array</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>Array containing the filtered data</td>
+</tr>
+<tr>
+<td>secondary-value-field</td>
+<td>string</td>
+<td>sc-vertical-barchart</td>
+<td></td>
+<td>Key of the value in the secondary data array</td>
+</tr>
+<tr>
+<td>secondary-bar-class</td>
+<td>string</td>
+<td>sc-vertical-barchart</td>
+<td>blueBar</td>
+<td>Class applied to the secondary vertical bar</td>
+</tr>
+</tbody>
+</table>
 
                                 
                                 </section>
@@ -383,14 +494,10 @@
 
             
                 
-                <a href="../color/" class="navigation navigation-prev " aria-label="Previous page: Colors">
+                <a href="./" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Vertical barchart">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
-                
-                <a href="documentation.html" class="navigation navigation-next " aria-label="Next page: Documentation">
-                    <i class="fa fa-angle-right"></i>
-                </a>
                 
             
         
@@ -399,7 +506,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Dropdown","level":"1.4","depth":1,"next":{"title":"Documentation","level":"1.4.1","depth":2,"path":"dropdown/documentation.md","ref":"dropdown/documentation.md","articles":[]},"previous":{"title":"Colors","level":"1.3","depth":1,"path":"color/README.md","ref":"color/README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["codepen"],"pluginsConfig":{"codepen":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"dropdown/README.md","mtime":"2016-06-13T09:45:47.245Z","type":"markdown"},"gitbook":{"version":"3.1.0","time":"2016-06-13T10:15:16.749Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Documentation","level":"1.8.1","depth":2,"previous":{"title":"Vertical barchart","level":"1.8","depth":1,"path":"vertical-barchart/README.md","ref":"vertical-barchart/README.md","articles":[{"title":"Documentation","level":"1.8.1","depth":2,"path":"vertical-barchart/documentation.md","ref":"vertical-barchart/documentation.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["codepen"],"pluginsConfig":{"codepen":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"vertical-barchart/documentation.md","mtime":"2016-06-13T10:12:46.822Z","type":"markdown"},"gitbook":{"version":"3.1.0","time":"2016-06-13T10:15:16.749Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
