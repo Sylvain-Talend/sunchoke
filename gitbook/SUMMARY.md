@@ -22,3 +22,6 @@
 
 * [Vertical barchart](vertical-barchart/README.md)
     * [Documentation](vertical-barchart/documentation.md)
+
+* [Slidable](slidable/README.md)
+    * [Documentation](slidable/documentation.md)
