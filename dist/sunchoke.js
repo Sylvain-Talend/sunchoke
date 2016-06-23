@@ -25477,7 +25477,9 @@
 	    bindings: {
 	        closeOnSelect: '<',
 	        onOpen: '&',
-	        side: '@'
+	        side: '@',
+	        visible: '=',
+	        distanceFromBorder: '@'
 	    },
 	    transclude: {
 	        'sc-dropdown-trigger': 'scDropdownTrigger',
@@ -25508,18 +25510,16 @@
 	var CLOSE_CLASS = 'sc-dropdown-close';
 
 	var ScDropdownCtrl = function () {
-	    ScDropdownCtrl.$inject = ["$window", "$element", "$timeout", "$document"];
-	    function ScDropdownCtrl($window, $element, $timeout, $document) {
+	    ScDropdownCtrl.$inject = ["$window", "$element", "$document"];
+	    function ScDropdownCtrl($window, $element, $document) {
 	        'ngInject';
 
 	        _classCallCheck(this, ScDropdownCtrl);
 
 	        this.$element = $element;
-	        this.$timeout = $timeout;
 
 	        this.body = angular.element($document[0].body);
 	        this.window = angular.element($window);
-	        this.visible = false;
 
 	        this._escHideContent = this._escHideContent.bind(this);
 	        this._hideContent = this._hideContent.bind(this);
@@ -25535,6 +25535,9 @@
 	            this.content.on('mousedown', function (e) {
 	                return e.stopPropagation();
 	            });
+	            if (this.visible) {
+	                this._showContent();
+	            }
 	        }
 	    }, {
 	        key: '$onDestroy',
@@ -25631,17 +25634,36 @@
 	    }, {
 	        key: '_positionVerticalMenu',
 	        value: function _positionVerticalMenu() {
-	            var positionAction = this.trigger[0].getBoundingClientRect();
-	            var positionMenu = this.content[0].getBoundingClientRect();
-	            var menuTopPosition = positionAction.bottom + CARRET_HEIGHT;
+	            var blocAction = this.trigger[0];
+	            var blocContent = this.content[0];
+	            var positionAction = blocAction.getBoundingClientRect();
+	            var positionContent = blocContent.getBoundingClientRect();
+	            var windowSize = this.window[0].innerHeight;
 
-	            if (positionAction.bottom + positionMenu.height + CARRET_HEIGHT > this.window[0].innerHeight) {
-	                menuTopPosition = positionAction.top - CARRET_HEIGHT - positionMenu.height;
-	                this.content.addClass('top');
-	            } else {
+	            var freeSpaceBottom = windowSize - positionAction.top;
+	            var freeSpaceTop = positionContent.top;
+	            var heightContent = positionContent.height;
+	            var offsetBorder = parseInt(this.distanceFromBorder);
+
+	            if (freeSpaceBottom > freeSpaceTop) {
+
+	                if (positionContent.top + heightContent >= windowSize) {
+	                    var newContentSize = heightContent - (positionContent.top + heightContent + offsetBorder - windowSize);
+	                    this.content.children().css('height', newContentSize);
+	                }
 	                this.content.removeClass('top');
+	            } else {
+
+	                if (heightContent > positionAction.top) {
+	                    var _newContentSize = positionAction.top - offsetBorder - CARRET_HEIGHT;
+	                    this.content.children().eq(0).css('height', _newContentSize + "px");
+
+	                    this.content.css('top', offsetBorder);
+	                } else {
+	                    this.content.css('top', positionAction.top + 'px');
+	                }
+	                this.content.addClass('top');
 	            }
-	            this.content.css('top', menuTopPosition + 'px');
 	        }
 	    }, {
 	        key: '_positionContent',
@@ -25652,6 +25674,7 @@
 	    }, {
 	        key: '_resetPositionContent',
 	        value: function _resetPositionContent() {
+	            this.content.children().css('height', "auto");
 	            this.content.css('top', 'auto');
 	            this.content.css('left', 'auto');
 	            this.content.css('right', 'auto');
