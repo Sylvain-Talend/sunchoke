@@ -1,0 +1,56 @@
+import { FILTER_TYPE } from "../model/filter-const.js";
+import ExactFilter from "../model/exact-filter.model.js";
+import InFilter from "../model/in-filter.model.js";
+
+//import EmptyFilter from "../model/empty-filter.model.js";
+//import InFilter from "../model/in-filter.model.js";
+
+export default class FilterModelFactory {
+    constructor() {
+    }
+
+    /**
+     * configuration = {
+     *      type: exact,
+     *      options:  {values: ['toto', 'tata], caseSensitive: true},
+     *      fieldId, fieldName, ...
+     * }
+     * @param configuration
+     */
+    createFilter(configuration) {
+        if (configuration) {
+            switch(configuration.type) {
+                case FILTER_TYPE.COMPARE:
+                    return;
+                case FILTER_TYPE.CONTAINS:
+                    return;
+                case FILTER_TYPE.EMPTY_FILTER:
+                    //return new EmptyFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+                case FILTER_TYPE.EXACT:
+                    //shouldn't be of size 0
+                    if (configuration.options.values && configuration.options.values.length > 0) {
+                        //creating filter object
+                        return configuration.options.values.length > 1 ?
+                            new InFilter(configuration.fieldId, configuration.fieldName, configuration.options) :
+                            new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+                    }
+                case FILTER_TYPE.IN:
+                    if (configuration.options.values && configuration.options.values.length > 0) {
+                        //creating filter object
+                        return configuration.options.values.length > 1 ?
+                            new InFilter(configuration.fieldId, configuration.fieldName, configuration.options) :
+                            new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+                    }
+                    //return new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+                /*case FILTER_TYPE.INSIDE_RANGE:
+                    return;
+                case FILTER_TYPE.INVALID_RECORDS:
+                    return;
+                case FILTER_TYPE.MATCHES:
+                    return;
+                case FILTER_TYPE.VALID_RECORDS:
+                    return;*/
+            }
+        }
+    }
+}
