@@ -19,9 +19,9 @@ export default class FilterService {
      * @param configuration the configuration to apply to the filter list
      * @description updates the current filter list with the given configuration
      */
-    updateFilter(actualFilter, configuration /*{ type: '', options: { value: [], overwriteMode : true }, ... }*/, event) {
+    updateFilter(actualFilter, configuration /*{ type: '', options: { value: [], overwriteMode : true }, ... }*/) {
         let hasChanged = false;
-        //const configuration = processConfiguration(newConfiguration/*({ filterType: '', values: [], ... }*/, event);
+        //const configuration = processConfiguration(newConfiguration/*({ filterType: '', values: [], ... }*/);
         //processing filter to look for modifications
         const result = actualFilter
             .map(filter => {
@@ -43,14 +43,14 @@ export default class FilterService {
         //state.filters = ScFilter.fromTQL(tql);
     }
 
-    removeFilter(filter) {
+    removeFilter(/*filter*/) {
         // facile
     }
 
     //-----------------------------------------------------------------------------------------------
     // values
     //-----------------------------------------------------------------------------------------------
-    addFilterValue(filter, value) { // triggered by other components
+    addFilterValue(/*filter, value*/) { // triggered by other components
         //const actualFilters = //get
         /*return actualFilter.map(nextFilter => {
          if(filter === nextFilter) {
@@ -89,7 +89,7 @@ export default class FilterService {
     }*/
 
     // triggered by other components
-        setFilterValues(filter, values) {}
+        setFilterValues(/*filter, values*/) {}
 
     // triggered by other components
 }

@@ -55,7 +55,7 @@ export default class ExactFilter extends ScFilter {
         return null;
     }
     
-    removeValue(value) {
+    removeValue(/*value*/) {
         //whatever the value there can be only one value in exact filter
         //so the filter has to be deleted
         return null;

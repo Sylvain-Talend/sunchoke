@@ -52,11 +52,11 @@ export default class ScFilter {
         return value === valueToCompare;
     }
 
-    static fromTree(subtree) {
+    static fromTree(/*subtree*/) {
 
     }
 
-    static fromDSL(subDSL) {
+    static fromDSL(/*subDSL*/) {
 
     }
 }
