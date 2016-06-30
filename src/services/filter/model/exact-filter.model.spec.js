@@ -22,7 +22,8 @@ describe('exact filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.EXACT,
-                options: {values: ["toto"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto"]}
             };
             const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
@@ -31,7 +32,8 @@ describe('exact filter model', () => {
                 fieldId: 'Col2',
                 fieldName: 'Col2',
                 type: FILTER_TYPE.EXACT,
-                options: {values: ["tata"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["tata"]}
             };
             const result = filter.update(newConfiguration);
 
@@ -52,7 +54,8 @@ describe('exact filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.EXACT,
-                options: {values: ["toto"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto"]}
             };
             const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
@@ -61,7 +64,8 @@ describe('exact filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.EXACT,
-                options: {values: ["value1"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["value1"]}
             };
             const result = filter.update(newConfiguration);
 
@@ -81,7 +85,8 @@ describe('exact filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.EXACT,
-                options: {values: ["toto"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto"]}
             };
             const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
@@ -90,7 +95,8 @@ describe('exact filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.EXACT,
-                options: {values: ["tata", "toto", "value1"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["tata", "toto", "value1"]}
             };
             const result = filter.update(newConfiguration);
 

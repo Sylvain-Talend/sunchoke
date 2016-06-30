@@ -21,10 +21,11 @@ export default class FilterModelFactory {
         if (configuration) {
             switch(configuration.type) {
                 case FILTER_TYPE.COMPARE:
-                    return;
+                    break;
                 case FILTER_TYPE.CONTAINS:
-                    return;
+                    break;
                 case FILTER_TYPE.EMPTY_FILTER:
+                    break
                     //return new EmptyFilter(configuration.fieldId, configuration.fieldName, configuration.options);
                 case FILTER_TYPE.EXACT:
                     //shouldn't be of size 0
@@ -34,6 +35,7 @@ export default class FilterModelFactory {
                             new InFilter(configuration.fieldId, configuration.fieldName, configuration.options) :
                             new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
                     }
+                    break
                 case FILTER_TYPE.IN:
                     if (configuration.options.values && configuration.options.values.length > 0) {
                         //creating filter object
@@ -41,6 +43,7 @@ export default class FilterModelFactory {
                             new InFilter(configuration.fieldId, configuration.fieldName, configuration.options) :
                             new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
                     }
+                    break
                     //return new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
                 /*case FILTER_TYPE.INSIDE_RANGE:
                     return;

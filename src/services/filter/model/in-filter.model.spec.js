@@ -22,7 +22,8 @@ describe('IN filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.IN,
-                options: {values: ["toto", "tata"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
             };
             const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
@@ -31,7 +32,8 @@ describe('IN filter model', () => {
                 fieldId: 'Col2',
                 fieldName: 'Col2',
                 type: FILTER_TYPE.IN,
-                options: {values: ["tata", "toto", "value1"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["tata", "toto", "value1"]}
             };
             const result = filter.update(newConfiguration);
 
@@ -53,7 +55,8 @@ describe('IN filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.IN,
-                options: {values: ["toto", "tata"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
             };
             const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
@@ -62,7 +65,8 @@ describe('IN filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.IN,
-                options: {values: ["tata", "toto", "value1"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["tata", "toto", "value1"]}
             };
             const result = filter.update(newConfiguration);
 
@@ -84,7 +88,8 @@ describe('IN filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.IN,
-                options: {values: ["toto", "tata"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
             };
             const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
@@ -93,7 +98,8 @@ describe('IN filter model', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.IN,
-                options: {values: ["bobo"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["bobo"]}
             };
             const result = filter.update(newConfiguration);
 

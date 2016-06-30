@@ -30,7 +30,6 @@ function getDefaultConfig(options) {
         },
         externals: {
             'angular': 'angular',
-            'lodash': '_'
         },
         module: {
             preLoaders: [],

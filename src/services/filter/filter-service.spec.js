@@ -54,7 +54,8 @@ describe('Filter service', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.IN,
-                options: {values: ["toto", "tata"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
             };
             const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
@@ -81,7 +82,8 @@ describe('Filter service', () => {
                 fieldId: 'Col1',
                 fieldName: 'Col1',
                 type: FILTER_TYPE.EXACT,
-                options: {values: ["toto"], overwriteMode: true}
+                overwriteMode: true,
+                options: {values: ["toto"]}
             };
             const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 

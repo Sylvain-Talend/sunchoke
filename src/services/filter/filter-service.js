@@ -60,13 +60,33 @@ export default class FilterService {
          });*/
     }
 
-    updateFilterValue(filter, oldValue, newValue) {}
+    updateFilterValue(actualFilters, configuration /*filter, oldValue, newValue*/) {
+        const { filter, oldValue, newValue } = configuration;
 
-     // triggered by filter-value-component
-    removeFilterValue(filter, value) {}
+        return actualFilters.map(nextFilter => {
+            if(filter === nextFilter) {
+                return filter.updateFilterValue(oldValue, newValue);
+            }
+            return nextFilter;
+        });
+    }
+
+    /**
+     * @ngdoc method
+     * @name removeFilterValue
+     * @methodOf talend.sunchoke.filter.service:FilterService
+     * @param actualFilter the current filter list
+     * @param configuration the configuration to apply to the filter list
+     * @description updates the current filter list with the given configuration
+     */
+    removeFilterValue(filter, value) {
+        return filter.removeValue(value);
+    }
 
     // triggered by filter-value-component
-    toggleFilterValue(filter, value) {}
+    /*toggleFilterValue(filter, value) {
+        return filter.toggleValue(value);
+    }*/
 
     // triggered by other components
         setFilterValues(filter, values) {}
