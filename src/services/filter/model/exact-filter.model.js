@@ -44,8 +44,15 @@ export default class ExactFilter extends ScFilter {
         //configuration doesn't concern the current filter
         return this;
     }
-    
-    
+
+    /**
+     * @ngdoc method
+     * @name setValues
+     * @methodOf talend.sunchoke.filter.model:ExactFilter
+     * @param newOptions the options for the new filter
+     * @description creates a new filter from the current one using the given options object
+     * @return the new filter
+     */
     setValues(newOptions) {
         if(newOptions.values.length > 1) {
             return new InFilter(this.fieldId, this.fieldName, newOptions);
@@ -54,13 +61,32 @@ export default class ExactFilter extends ScFilter {
         }
         return null;
     }
-    
-    removeValue(/*value*/) {
+
+    /**
+     * @ngdoc method
+     * @name removeValue
+     * @methodOf talend.sunchoke.filter.model:ExactFilter
+     * @param value the value to remove from filter
+     * @description remove a value from the filter
+     * @return null if the removed value was a filter value (there's only one value in ExactFilter)
+     */
+    removeValue(value) {
         //whatever the value there can be only one value in exact filter
         //so the filter has to be deleted
-        return null;
+        if (this.options.values[0] === value) {
+            return null;
+        }
+        return this;
     }
-    
+
+    /**
+     * @ngdoc method
+     * @name addValue
+     * @methodOf talend.sunchoke.filter.model:ExactFilter
+     * @param value the value to add
+     * @description add a value to the filter's values
+     * @return the new filter with containing the added value
+     */
     addValue(value) {
         const options = this.options;
         //adding the value to the list
@@ -74,6 +100,14 @@ export default class ExactFilter extends ScFilter {
         return this.setValues(newOptions);
     }
 
+    /**
+     * @ngdoc method
+     * @name addValue
+     * @methodOf talend.sunchoke.filter.model:ExactFilter
+     * @param value the value to add
+     * @description add a value to the filter's values
+     * @return the new filter with containing the added value
+     */
     updateValue(oldValue, newValue) {
         const options = this.options;
         //adding the value to the list
@@ -91,7 +125,15 @@ export default class ExactFilter extends ScFilter {
             return this;
         }
     }
-    
+
+    /**
+     * @ngdoc method
+     * @name toggleValue
+     * @methodOf talend.sunchoke.filter.model:ExactFilter
+     * @param value the value to toggle
+     * @description toggle a value of the filter's values
+     * @return the new filter with containing the new filter value list
+     */
     toggleValue(value) {
         const newValues = (this.options.values.slice(0));
         if (this._compareValues(newValues[0], value)) {

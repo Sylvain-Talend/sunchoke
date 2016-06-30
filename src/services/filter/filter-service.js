@@ -43,29 +43,60 @@ export default class FilterService {
         //state.filters = ScFilter.fromTQL(tql);
     }
 
-    removeFilter(/*filter*/) {
-        // facile
+    /**
+     * @ngdoc method
+     * @name removeFilter
+     * @methodOf talend.sunchoke.filter.service:FilterService
+     * @param actualFilter the current filter list
+     * @param configuration the configuration to apply to the filter list
+     * @description removes the given filter of the filter list
+     * @return the new filter list
+     */
+    removeFilter(actualFilters, configuration /*filter*/) {
+        const { filter } = configuration;
+        return actualFilters.filter(nextFilter => {
+            return filter !== nextFilter;
+        });
     }
 
     //-----------------------------------------------------------------------------------------------
     // values
     //-----------------------------------------------------------------------------------------------
-    addFilterValue(/*filter, value*/) { // triggered by other components
-        //const actualFilters = //get
-        /*return actualFilter.map(nextFilter => {
-         if(filter === nextFilter) {
-         return nextFilter.addValue(value);
-         }
-         return nextFilter;
-         });*/
+
+    /**
+     * @ngdoc method
+     * @name addFilterValue
+     * @methodOf talend.sunchoke.filter.service:FilterService
+     * @param actualFilter the current filter list
+     * @param configuration the configuration to apply to the filter list
+     * @description add the given configuration value to the filter values
+     * @return a new filter with the new filter values
+     */
+    addFilterValue(actualFilters, configuration /*filter, newValue*/) {
+        const { filter, newValue } = configuration;
+        return actualFilters.map(nextFilter => {
+            if(filter === nextFilter) {
+                return filter.addValue(newValue);
+            }
+            return nextFilter;
+        });
     }
 
+    /**
+     * @ngdoc method
+     * @name updateFilterValue
+     * @methodOf talend.sunchoke.filter.service:FilterService
+     * @param actualFilter the current filter list
+     * @param configuration the configuration to apply to the filter list
+     * @description updates the current filter list with the given configuration
+     * @return a new filter with the new filter values
+     */
     updateFilterValue(actualFilters, configuration /*filter, oldValue, newValue*/) {
         const { filter, oldValue, newValue } = configuration;
 
         return actualFilters.map(nextFilter => {
             if(filter === nextFilter) {
-                return filter.updateFilterValue(oldValue, newValue);
+                return filter.updateValue(oldValue, newValue);
             }
             return nextFilter;
         });
@@ -77,19 +108,40 @@ export default class FilterService {
      * @methodOf talend.sunchoke.filter.service:FilterService
      * @param actualFilter the current filter list
      * @param configuration the configuration to apply to the filter list
-     * @description updates the current filter list with the given configuration
+     * @description remove the given configuration value from the current filter list
+     * @return a new filter with the new filter values
      */
-    removeFilterValue(filter, value) {
-        return filter.removeValue(value);
+    removeFilterValue(actualFilters, configuration  /*filter, value*/) {
+        const { filter, value } = configuration;
+
+        return actualFilters.map(nextFilter => {
+            if(filter === nextFilter) {
+                return filter.removeValue(value);
+            }
+            return nextFilter;
+        });
     }
 
-    // triggered by filter-value-component
-    /*toggleFilterValue(filter, value) {
-        return filter.toggleValue(value);
-    }*/
+    /**
+     * @ngdoc method
+     * @name toggleFilterValue
+     * @methodOf talend.sunchoke.filter.service:FilterService
+     * @param actualFilter the current filter list
+     * @param configuration the configuration to apply to the filter list
+     * @description toggle the given filter
+     * @return a new filter with the new filter values
+     */
+    toggleFilterValue(actualFilters, configuration/*filter, value*/) {
+        const { filter, value } = configuration;
+
+        return actualFilters.map(nextFilter => {
+            if(filter === nextFilter) {
+                return filter.toggleValue(value);
+            }
+            return nextFilter;
+        });
+    }
 
     // triggered by other components
         setFilterValues(/*filter, values*/) {}
-
-    // triggered by other components
 }

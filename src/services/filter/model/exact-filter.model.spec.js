@@ -265,10 +265,27 @@ describe('exact filter model', () => {
             const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
             //when
-            const result = filter.removeValue("tata");
+            const result = filter.removeValue("toto");
 
             //then
             expect(result).toBeNull();
+        }));
+
+        it('should do nothing because the given value does not match any of the filter values', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: ["toto"]}
+            };
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.removeValue("tata");
+
+            //then
+            expect(result).toBe(filter);
         }));
 
         it('should update value in the current filter', inject(function () {

@@ -47,7 +47,15 @@ export default class InFilter extends ScFilter {
     }
 
 
-   setValues(newOptions) {
+    /**
+     * @ngdoc method
+     * @name setValues
+     * @methodOf talend.sunchoke.filter.model:InFilter
+     * @param newOptions the options for the new filter
+     * @description creates a new filter from the current one using the given options object
+     * @return the new filter
+     */
+    setValues(newOptions) {
        if(newOptions.values.length > 1) {
            return new InFilter(this.fieldId, this.fieldName, newOptions);
        } else if (newOptions.values.length) {
@@ -56,6 +64,14 @@ export default class InFilter extends ScFilter {
        return null;
     }
 
+    /**
+     * @ngdoc method
+     * @name removeValue
+     * @methodOf talend.sunchoke.filter.model:InFilter
+     * @param value the value to remove from filter
+     * @description remove a value from the filter
+     * @return null if the removed value was a filter value (there's only one value in ExactFilter)
+     */
     removeValue(value) {
         const options = this.options;
         const newValues = this.options.values.filter((filterValue) => {
@@ -70,7 +86,15 @@ export default class InFilter extends ScFilter {
         return this.setValues(newOptions);
     }
 
-   addValue(value) {
+    /**
+     * @ngdoc method
+     * @name addValue
+     * @methodOf talend.sunchoke.filter.model:InFilter
+     * @param value the value to add
+     * @description add a value to the filter's values
+     * @return the new filter with containing the added value
+     */
+    addValue(value) {
        const options = this.options;
        const newOptions = {
            ...options,
@@ -79,6 +103,14 @@ export default class InFilter extends ScFilter {
        return this.setValues(newOptions);
     }
 
+    /**
+     * @ngdoc method
+     * @name addValue
+     * @methodOf talend.sunchoke.filter.model:InFilter
+     * @param value the value to add
+     * @description add a value to the filter's values
+     * @return the new filter with containing the added value
+     */
     updateValue(oldValue, newValue) {
         //adding the value to the list
         const options = this.options;
@@ -100,6 +132,14 @@ export default class InFilter extends ScFilter {
         }
     }
 
+    /**
+     * @ngdoc method
+     * @name toggleValue
+     * @methodOf talend.sunchoke.filter.model:InFilter
+     * @param value the value to toggle
+     * @description toggle a value of the filter's values
+     * @return the new filter with containing the new filter value list
+     */
     toggleValue(value) {
         const options = this.options;
         const newValues = (this.options.values.slice(0));
