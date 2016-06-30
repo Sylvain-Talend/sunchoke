@@ -47,38 +47,73 @@ export default class InFilter extends SimpleValueFilter {
     }
 
 
- /*   setValues(newValues) {
-        if(newValues.length) {
-            //return new ...
-        }
-        return null
+   setValues(newOptions) {
+       if(newOptions.values.length > 1) {
+           return new InFilter(this.fieldId, this.fieldName, newOptions);
+       } else if (newOptions.values.length) {
+           return new ExactFilter(this.fieldId, this.fieldName, newOptions)
+       }
+       return null;
     }
 
     removeValue(value) {
         //const newValues = ///
-        return this.setValues(newValues);
+        const newValues = this.options.values.filter((filterValue) => {
+            return filterValue !== value;
+        });
+
+        //recreating an option object
+        const newOptions = _.extend({}, this.options);
+        newOptions.values = newValues;
+        return this.setValues(newOptions);
     }
 
-    addValue(value) {
-        //const newValues = ///
-        return this.setValues(newValues);
+   addValue(value) {
+       //adding the value to the list
+       const newValues = (this.options.values.slice(0));
+       newValues.push(value);
+
+       //recreating an option object
+       const newOptions = _.extend({}, this.options);
+       newOptions.values = newValues;
+       return this.setValues(newOptions);
     }
 
     updateValue(oldValue, newValue) {
-        //const newValues = ///
-        return this.setValues(newValues);
+        //adding the value to the list
+        const newValues = (this.options.values.slice(0));
+        const updateIndex = newValues.findIndex((filterValue) => {
+            return this._compareValues(filterValue, oldValue);
+        });
+
+        if (updateIndex > - 1) {
+            newValues[updateIndex] = newValue;
+            //recreating an option object
+            const newOptions = _.extend({}, this.options);
+            newOptions.values = newValues;
+            return this.setValues(newOptions);
+        } else {
+            return this;
+        }
     }
 
     toggleValue(value) {
-        if(values.contains(value)) {
-            return this.remove(value);
+        const newValues = (this.options.values.slice(0));
+        const updateIndex = newValues.findIndex((filterValue) => {
+            return this._compareValues(filterValue, value);
+        });
+
+        if (updateIndex > - 1) {
+            newValues.splice(updateIndex, 1);
+        } else {
+            newValues.push(value);
         }
-        else {
-            return this.add(value);
-        }
+        const newOptions = _.extend({}, this.options);
+        newOptions.values = newValues;
+        return this.setValues(newOptions);
     }
 
-    getFilterFn() {
+    /*getFilterFn() {
 
     }
 

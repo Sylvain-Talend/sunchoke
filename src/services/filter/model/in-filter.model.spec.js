@@ -14,7 +14,7 @@ import { FILTER_TYPE } from './filter-const.js';
 import ExactFilter from './exact-filter.model.js';
 import InFilter from './in-filter.model.js';
 
-describe('in filter model', () => {
+describe('IN filter model', () => {
     describe('when not the same field', () => {
         it('should return the given filter', inject(function () {
             //given
@@ -214,6 +214,108 @@ describe('in filter model', () => {
             expect(result.sign).toBe("=");
             expect(result.fieldId).toBe("Col1");
             expect(result.fieldName).toBe("Col1");
+            expect(result.options.values.length).toBe(1);
+            expect(result.options.values[0]).toBe("toto");
+        }));
+    });
+
+    describe('in filter component api', () => {
+        it('should add value to the current filter, changing it to InFilter', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.addValue("bobo");
+
+            //then
+            expect(result instanceof InFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(3);
+            expect(result.options.values[0]).toBe("toto");
+            expect(result.options.values[1]).toBe("tata");
+            expect(result.options.values[2]).toBe("bobo");
+        }));
+
+        it('should remove value to the current filter, changing it to ExactFilter', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.removeValue("toto");
+
+            //then
+            expect(result instanceof ExactFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(1);
+            expect(result.options.values[0]).toBe("tata");
+        }));
+
+        it('should update value current filter value', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.updateValue("toto", "bobo");
+
+            //then
+            expect(result instanceof InFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(2);
+            expect(result.options.values[0]).toBe("bobo");
+            expect(result.options.values[1]).toBe("tata");
+        }));
+
+        it('should add value in  current filter when new value toggled', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.toggleValue("bobo");
+
+            //then
+            expect(result instanceof InFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(3);
+            expect(result.options.values[0]).toBe("toto");
+            expect(result.options.values[1]).toBe("tata");
+            expect(result.options.values[2]).toBe("bobo");
+        }));
+
+        it('should remove value on toggle when already in filter value', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.toggleValue("tata");
+
+            //then
+            expect(result instanceof ExactFilter).toBeTruthy();
             expect(result.options.values.length).toBe(1);
             expect(result.options.values[0]).toBe("toto");
         }));

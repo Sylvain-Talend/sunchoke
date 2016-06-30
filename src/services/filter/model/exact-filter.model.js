@@ -52,7 +52,7 @@ export default class ExactFilter extends SimpleValueFilter {
         } else if (newOptions.values.length) {
             return new ExactFilter(this.fieldId, this.fieldName, newOptions)
         }
-        return null
+        return null;
     }
     
     removeValue(value) {
