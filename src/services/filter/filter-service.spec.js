@@ -36,10 +36,10 @@ describe('Filter service', () => {
             const result = FilterService.updateFilter(currentFilter, configuration);
             //then
             expect(result.length).toBe(1);
-            console.log(result[0]);
-            console.log(result[0].constructor);
-            console.log(InFilter);
-            console.log(result[0].constructor === InFilter);
+            //console.log(result[0]);
+            //console.log(result[0].constructor);
+            //console.log(InFilter);
+            //console.log(result[0].constructor === InFilter);
             //expect(result[0] instanceof InFilter).toBeTruthy();
             expect(result[0].options.values.length).toBe(3);
             expect(result[0].sign).toBe("in");

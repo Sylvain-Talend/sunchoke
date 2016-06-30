@@ -25,7 +25,7 @@ export default class SimpleValueFilter extends ScFilter {
         //looking for the given filter value in the current filter
         configuration.options.values.forEach((value) => {
             const index = clone.findIndex(filterValue => {
-                return value === filterValue;
+                return this._compareValues(value, filterValue);
             });
             if (index > - 1) {
                 //removing them if they were found
@@ -38,5 +38,17 @@ export default class SimpleValueFilter extends ScFilter {
         //adding the new values
         clone.push(...newFilterValue);
         return clone;
+    }
+
+    /**
+     * @ngdoc method
+     * @name _compareValues
+     * @methodOf talend.sunchoke.filter.model.abstract:SimpleValueFilter
+     * @param value  first value to compare
+     * @param valueToCompare second value to compare
+     * @description compares two simple value
+     */
+    _compareValues(value, valueToCompare) {
+        return value === valueToCompare;
     }
 }

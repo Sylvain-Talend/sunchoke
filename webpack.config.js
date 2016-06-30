@@ -29,7 +29,8 @@ function getDefaultConfig(options) {
             filename: 'sunchoke.js'
         },
         externals: {
-            'angular': 'angular'
+            'angular': 'angular',
+            'lodash': '_'
         },
         module: {
             preLoaders: [],

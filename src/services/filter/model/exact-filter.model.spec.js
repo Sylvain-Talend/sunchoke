@@ -227,4 +227,117 @@ describe('exact filter model', () => {
             expect(lastFilter.options.values[0]).toBe("tata");
         }));
     });
+    describe('filter component api', () => {
+        it('should add value to the current filter, changing it to InFilter', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: ["toto"]}
+            };
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.addValue("tata");
+
+            //then
+            expect(result instanceof InFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(2);
+            expect(result.options.values[0]).toBe("toto");
+            expect(result.options.values[1]).toBe("tata");
+        }));
+
+        it('should remove value to the current filter delete the filter by returning null', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: ["toto"]}
+            };
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.removeValue("tata");
+
+            //then
+            expect(result).toBeNull();
+        }));
+
+        it('should update value in the current filter', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: ["toto"]}
+            };
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.updateValue("toto", "bobo");
+
+            //then
+            expect(result instanceof ExactFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(1);
+            expect(result.options.values[0]).toBe("bobo");
+        }));
+
+        it('should do nothing on the current filter because the value to update does not exist', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: ["toto"]}
+            };
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.updateValue("tata", "bobo");
+
+            //then
+            expect(result instanceof ExactFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(1);
+            expect(result.options.values[0]).toBe("toto");
+        }));
+    });
+
+    it('should remove filter by returning null when toggling an already existing value', inject(function () {
+        //given
+        const configuration = {
+            fieldId: 'Col1',
+            fieldName: 'Col1',
+            type: FILTER_TYPE.EXACT,
+            options: {values: ["toto"]}
+        };
+        const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+        //when
+        const result = filter.toggleValue("toto");
+
+        //then
+        expect(result).toBeNull();
+    }));
+
+    it('should add value to the current filter when toggling a non-existing value', inject(function () {
+        //given
+        const configuration = {
+            fieldId: 'Col1',
+            fieldName: 'Col1',
+            type: FILTER_TYPE.EXACT,
+            options: {values: ["toto"]}
+        };
+        const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+        //when
+        const result = filter.toggleValue("tata");
+
+        //then
+        expect(result instanceof InFilter).toBeTruthy();
+        expect(result.options.values.length).toBe(2);
+        expect(result.options.values[0]).toBe("toto");
+        expect(result.options.values[1]).toBe("tata");
+    }));
 });

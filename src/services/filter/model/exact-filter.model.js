@@ -46,38 +46,58 @@ export default class ExactFilter extends SimpleValueFilter {
     }
     
     
-    /*setValues(newValues) {
-        if(newValues.length) {
-            //return new ...
+    setValues(newOptions) {
+        if(newOptions.values.length > 1) {
+            return new InFilter(this.fieldId, this.fieldName, newOptions);
+        } else if (newOptions.values.length) {
+            return new ExactFilter(this.fieldId, this.fieldName, newOptions)
         }
         return null
     }
     
     removeValue(value) {
-        //const newValues = ///
-        return this.setValues(newValues);
+        //whatever the value there can be only one value in exact filter
+        //so the filter has to be deleted
+        return null;
     }
     
     addValue(value) {
-        //const newValues = ///
-        return this.setValues(newValues);
+        //adding the value to the list
+        const newValues = (this.options.values.slice(0));
+        newValues.push(value);
+        //recreating an option object
+        const newOptions = _.extend({}, this.options);
+        newOptions.values = newValues;
+        return this.setValues(newOptions);
     }
-    
+
     updateValue(oldValue, newValue) {
-        //const newValues = ///
-        return this.setValues(newValues);
+        //adding the value to the list
+        const newValues = (this.options.values.slice(0));
+        if (this._compareValues(newValues[0], oldValue)) {
+            newValues[0] = newValue;
+            //recreating an option object
+            const newOptions = _.extend({}, this.options);
+            newOptions.values = newValues;
+
+            return this.setValues(newOptions);
+        }
+        else {
+            return this;
+        }
     }
     
     toggleValue(value) {
-        if(values.contains(value)) {
-            return this.remove(value);
+        const newValues = (this.options.values.slice(0));
+        if (this._compareValues(newValues[0], value)) {
+           return null;
         }
         else {
-            return this.add(value);
+            return this.addValue(value);
         }
     }
     
-    getFilterFn() {
+    /*getFilterFn() {
         
     }
     
