@@ -1,4 +1,3 @@
-import ScFilter from './abstract/filter.model.js';
 import ExactFilter from './exact-filter.model.js';
 import { FILTER_TYPE } from "./filter-const.js";
 import AbstractExactInFilter from "./abstract/exact-in-filter.model.js";
@@ -21,7 +20,7 @@ export default class InFilter extends AbstractExactInFilter {
      * @methodOf talend.sunchoke.filter.model:InFilter
      * @param value the value to remove from filter
      * @description remove a value from the filter
-     * @return null if the removed value was a filter value (there's only one value in ExactFilter)
+     * @return a new filter after removing the given one
      */
     removeValue(value) {
         const options = this.options;

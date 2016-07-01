@@ -1,4 +1,3 @@
-import ScFilter from './abstract/filter.model.js';
 import InFilter from './in-filter.model.js';
 import { FILTER_TYPE } from "./filter-const.js";
 import AbstractExactInFilter from "./abstract/exact-in-filter.model.js";
