@@ -223,6 +223,40 @@ describe('IN filter model', () => {
             expect(result.options.values.length).toBe(1);
             expect(result.options.values[0]).toBe("toto");
         }));
+
+        it('should update in filter add value to in filter when adding an exact filter on same field', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const currentFilter = [filter];
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: ["tutu"]}
+            };
+
+            //when
+            const result = filter.update(newConfiguration);
+            //then
+            expect(result instanceof InFilter).toBeTruthy();
+
+            expect(result.sign).toBe("in");
+            expect(result.fieldId).toBe("Col1");
+            expect(result.fieldName).toBe("Col1");
+            expect(result.options.values.length).toBe(3);
+            expect(result.options.values[0]).toBe("toto");
+            expect(result.options.values[1]).toBe("tata");
+            expect(result.options.values[2]).toBe("tutu");
+            // should return only one IN
+        }));
     });
 
     describe('in filter component api', () => {

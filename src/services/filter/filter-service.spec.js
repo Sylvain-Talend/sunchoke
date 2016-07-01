@@ -103,4 +103,153 @@ describe('Filter service', () => {
             expect(result[0].sign).toBe("in");
         }));
     });
+
+    describe('removing filter', function() {
+        it('should return a list without the wanted value', inject(function (FilterService) {
+
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                overwriteMode: true,
+                options: {values: ["toto"]}
+            };
+
+            const configuration2 = {
+                fieldId: 'Col2',
+                fieldName: 'Col2',
+                type: FILTER_TYPE.IN,
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
+            };
+
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+            const filter2 = new InFilter(configuration2.fieldId, configuration2.fieldName, configuration2.options);
+            const filterArray = [filter, filter2];
+            const removeConfiguration = {filter: filter2};
+
+            const newFilterArray = FilterService.removeFilter(filterArray, removeConfiguration);
+            expect(newFilterArray.length).toBe(1);
+            expect(filterArray.length).toBe(2); // not mutated
+            expect(newFilterArray[0] instanceof ExactFilter);
+            expect(newFilterArray[0].sign).toBe("=");
+            expect(newFilterArray[0].options.values[0]).toBe("toto");
+        }));
+    });
+
+    describe('add filter value', function() {
+        it('should return a list with the new filter in it', inject(function (FilterService) {
+
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                overwriteMode: true,
+                options: {values: ["toto"]}
+            };
+
+            const configuration2 = {
+                fieldId: 'Col2',
+                fieldName: 'Col2',
+                type: FILTER_TYPE.IN,
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
+            };
+
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+            const filter2 = new InFilter(configuration2.fieldId, configuration2.fieldName, configuration2.options);
+            const filterArray = [filter, filter2];
+            const addConfiguration = {filter: filter2, newValue: "bobo"};
+
+            const newFilterArray = FilterService.addFilterValue(filterArray, addConfiguration);
+            expect(newFilterArray.length).toBe(2);
+            expect(filterArray.length).toBe(2); // not mutated
+            expect(filterArray[1].options.values.length).toBe(2);// not mutated
+
+            expect(newFilterArray[1].options.values.length).toBe(3);
+            expect(newFilterArray[1] instanceof InFilter);
+            expect(newFilterArray[1].sign).toBe("in");
+            expect(newFilterArray[1].options.values[0]).toBe("toto");
+            expect(newFilterArray[1].options.values[1]).toBe("tata");
+            expect(newFilterArray[1].options.values[2]).toBe("bobo");
+        }));
+    });
+
+    describe('update filter value', function() {
+        it('should return a list with the updated filter value', inject(function (FilterService) {
+
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                overwriteMode: true,
+                options: {values: ["toto"]}
+            };
+
+            const configuration2 = {
+                fieldId: 'Col2',
+                fieldName: 'Col2',
+                type: FILTER_TYPE.IN,
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
+            };
+
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+            const filter2 = new InFilter(configuration2.fieldId, configuration2.fieldName, configuration2.options);
+            const filterArray = [filter, filter2];
+            const updateConfiguration = {filter: filter2, oldValue: "toto", newValue: "bobo"};
+
+            const newFilterArray = FilterService.updateFilterValue(filterArray, updateConfiguration);
+            expect(newFilterArray.length).toBe(2);
+            expect(filterArray.length).toBe(2); // not mutated
+            expect(filterArray[1].options.values[0]).toBe("toto"); // not mutated
+            expect(filterArray[1].options.values[1]).toBe("tata"); // not mutated
+
+            expect(newFilterArray[1] instanceof InFilter);
+            expect(newFilterArray[1].sign).toBe("in");
+            expect(newFilterArray[1].options.values[0]).toBe("bobo");
+            expect(newFilterArray[1].options.values[1]).toBe("tata");
+        }));
+    });
+
+    describe('remove filter value', function() {
+        it('should remove filter value from filter', inject(function (FilterService) {
+
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                overwriteMode: true,
+                options: {values: ["toto"]}
+            };
+
+            const configuration2 = {
+                fieldId: 'Col2',
+                fieldName: 'Col2',
+                type: FILTER_TYPE.IN,
+                overwriteMode: true,
+                options: {values: ["toto", "tata"]}
+            };
+
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+            const filter2 = new InFilter(configuration2.fieldId, configuration2.fieldName, configuration2.options);
+            const filterArray = [filter, filter2];
+            const removeConfiguration = {filter: filter2, value: "toto"};
+
+            const newFilterArray = FilterService.removeFilterValue(filterArray, removeConfiguration);
+            expect(newFilterArray.length).toBe(2);
+            expect(filterArray.length).toBe(2); // not mutated
+            expect(filterArray[1].options.values[0]).toBe("toto"); // not mutated
+            expect(filterArray[1].options.values[1]).toBe("tata"); // not mutated
+
+            expect(newFilterArray[1] instanceof ExactFilter);
+            expect(newFilterArray[1].options.values.length).toBe(1);
+            expect(newFilterArray[1].sign).toBe("=");
+            expect(newFilterArray[1].options.values[0]).toBe("tata");
+        }));
+    });
 });
