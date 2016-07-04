@@ -63,33 +63,29 @@ export default class RangeFilter extends ScFilter {
         //looking for the given filter value in the current filter
         values.forEach((value) => {
             if (clone[0].min > value.min) {
-                //means the given value is the smallest one around
-                //so we change the min value of the first range
-                const newValue = {
+                //smallest range so we select everything from the biggest range max to the smallest range min
+                clone = [{
                     min: value.min, max: clone[clone.length - 1].max
-                };
-                clone = [newValue];
+                }];
             } else {
                 const newRange = {
                     min: clone[0].min, max: value.max
                 };
                 if (!this.inAnotherRange(clone, newRange)) {
-                    const newClone = this.removeDuplicateRange(clone, newRange);
-                    clone = newClone;
-                    //clone.push(newRange);
+                    //removing all the duplicate range (in the new range)
+                    clone = this.removeDuplicateRange(clone, newRange);
 
                     if (!this.stepsOnCurrentRanges(clone, newRange)) {
-                        //if not in another range then just add the range
                         clone.push(newRange);
                     } else {
-                        //find the first range which included the new range
-                        const rangeToUpdate = newClone.findIndex((filterValue) => {
+                        //steps on another range
+                        const rangeToUpdate = clone.findIndex((filterValue) => {
                             return newRange.max >= filterValue.min && newRange.max <= filterValue.max;
                         });
 
                         if (rangeToUpdate > - 1) {
                             //as when using merge mode the begining point is always the min of the smallest range
-                            newClone[rangeToUpdate].min = newRange.min;
+                            clone[rangeToUpdate].min = newRange.min;
                         }
                     }
                 }
@@ -150,7 +146,7 @@ export default class RangeFilter extends ScFilter {
      */
     removeDuplicateRange(filterValues, range) {
         const rangeContainingValue = filterValues.filter((filterValue) => {
-            return filterValue.min >= range.max && filterValue.max > range.max;
+            return filterValue.min >= range.min && filterValue.max >= range.max;
         });
         return rangeContainingValue;
     }

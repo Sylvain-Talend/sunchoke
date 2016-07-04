@@ -65,6 +65,28 @@ describe('range filter model', () => {
             expect(result).toBeNull();
         }));
 
+        it('should return null when toggling existing value', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min:20, max:30}, {min:0, max:10}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: [1]}
+            };
+            const result = filter.update(newConfiguration);
+            //then
+            expect(result).toBe(filter);
+        }));
+
         it('should toggle filter value and ignore ranges which are part of another range', inject(function () {
             //given
             const configuration = {
@@ -153,6 +175,35 @@ describe('range filter model', () => {
             expect(result.options.values[0].max).toBe(30);
             expect(result.options.values[1].min).toBe(40);
             expect(result.options.values[1].max).toBe(100);
+        }));
+
+        it('should merge 3 ranges', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min:20, max:30}, {min:40, max:90}, {min:100, max:120}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min:90, max:100}]}
+            };
+
+            const result = filter.update(newConfiguration);
+
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(2);
+            expect(result.options.values[0].min).toBe(20);
+            expect(result.options.values[0].max).toBe(30);
+            expect(result.options.values[1].min).toBe(40);
+            expect(result.options.values[1].max).toBe(120);
         }));
     });
 
@@ -267,6 +318,239 @@ describe('range filter model', () => {
             expect(result.options.values.length).toBe(2);
             expect(result.options.values[0].min).toBe(5);
             expect(result.options.values[0].max).toBe(32);
+            expect(result.options.values[1].min).toBe(35);
+            expect(result.options.values[1].max).toBe(40);
+        }));
+
+        it('should select from the smallest to the stepped range if the given range steps on another one', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 25, max: 60}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                rangeMergeMode: true,
+                options: {values: [{min: 12, max: 32}]}
+            };
+
+            const result = filter.update(newConfiguration);
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(1);
+            expect(result.options.values[0].min).toBe(5);
+            expect(result.options.values[0].max).toBe(60);
+        }));
+    });
+
+    describe('using range filter api', () => {
+        it('should return new filters when using setValues', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 12, max: 32}]}
+            };
+
+            //when
+            const result = filter.setValues(newConfiguration.options);
+
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(1);
+            expect(result.options.values[0].min).toBe(12);
+            expect(result.options.values[0].max).toBe(32);
+        }));
+
+        it('should return new filters when using setValues', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: []}
+            };
+
+            //when
+            const result = filter.setValues(newConfiguration.options);
+
+            //then
+            expect(result).toBeNull();
+        }));
+
+        it('should return new filters without the removed value', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 10, max: 30}]}
+            };
+
+            //when
+            const result = filter.removeValue(newConfiguration.options.values[0]);
+
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(2);
+            expect(result.options.values[0].min).toBe(5);
+            expect(result.options.values[0].max).toBe(10);
+            expect(result.options.values[1].min).toBe(35);
+            expect(result.options.values[1].max).toBe(40);
+        }));
+
+        it('should return new filters with the added value', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 50, max: 60}]}
+            };
+
+            //when
+            const result = filter.addValue(newConfiguration.options.values[0]);
+
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(4);
+            expect(result.options.values[0].min).toBe(5);
+            expect(result.options.values[0].max).toBe(10);
+            expect(result.options.values[1].min).toBe(10);
+            expect(result.options.values[1].max).toBe(30);
+            expect(result.options.values[2].min).toBe(35);
+            expect(result.options.values[2].max).toBe(40);
+            expect(result.options.values[3].min).toBe(50);
+            expect(result.options.values[3].max).toBe(60);
+        }));
+
+        it('should return new filters with the added value merged', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 40, max: 50}]}
+            };
+
+            //when
+            const result = filter.addValue(newConfiguration.options.values[0]);
+
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(3);
+            expect(result.options.values[0].min).toBe(5);
+            expect(result.options.values[0].max).toBe(10);
+            expect(result.options.values[1].min).toBe(10);
+            expect(result.options.values[1].max).toBe(30);
+            expect(result.options.values[2].min).toBe(35);
+            expect(result.options.values[2].max).toBe(50);
+        }));
+
+        it('should return new filters with the added value merged', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 40, max: 50}]}
+            };
+
+            //when
+            const result = filter.addValue(newConfiguration.options.values[0]);
+
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(3);
+            expect(result.options.values[0].min).toBe(5);
+            expect(result.options.values[0].max).toBe(10);
+            expect(result.options.values[1].min).toBe(10);
+            expect(result.options.values[1].max).toBe(30);
+            expect(result.options.values[2].min).toBe(35);
+            expect(result.options.values[2].max).toBe(50);
+        }));
+
+        it('should return new filters with the added value merged', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            const newConfiguration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}]}
+            };
+
+            //when
+            const result = filter.toggleValue(newConfiguration.options.values[0]);
+
+            //then
+            expect(result instanceof RangeFilter).toBeTruthy();
+            expect(result.options.values.length).toBe(2);
+            expect(result.options.values[0].min).toBe(10);
+            expect(result.options.values[0].max).toBe(30);
             expect(result.options.values[1].min).toBe(35);
             expect(result.options.values[1].max).toBe(40);
         }));
