@@ -1,4 +1,5 @@
 import FilterModelFactory from './factory/filter-model-factory.js';
+import { FILTER_TYPE } from './model/filter-const.js';
 
 /**
  * @ngdoc service
@@ -9,6 +10,7 @@ export default class FilterService {
 
     constructor() {
         this.FilterModelFactory = new FilterModelFactory();
+        this.filterType = FILTER_TYPE;
     }
 
     /**

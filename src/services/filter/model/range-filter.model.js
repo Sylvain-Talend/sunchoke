@@ -58,32 +58,101 @@ export default class RangeFilter extends ScFilter {
      * @description process the configuration for simple value filter
      */
     mergeRangesWithCurrentOne(values) {
-        const clone = JSON.parse(JSON.stringify(this.options.values));
+        let clone = JSON.parse(JSON.stringify(this.options.values));
 
         //looking for the given filter value in the current filter
         values.forEach((value) => {
             if (clone[0].min > value.min) {
-                //console.log("in smallest min");
                 //means the given value is the smallest one around
-                clone[0].min = value.min;
-            } else if (!this.inAnotherRange(clone, value)) {
-                //console.log("not in another range");
+                //so we change the min value of the first range
+                const newValue = {
+                    min: value.min, max: clone[clone.length - 1].max
+                };
+                clone = [newValue];
+            } else {
+                const newRange = {
+                    min: clone[0].min, max: value.max
+                };
+                if (!this.inAnotherRange(clone, newRange)) {
+                    const newClone = this.removeDuplicateRange(clone, newRange);
+                    clone = newClone;
+                    //clone.push(newRange);
 
-                const cloneMap =  clone.filter((filterValue) => {
-                    if (filterValue.max < value.max) {
-                        return value;
+                    if (!this.stepsOnCurrentRanges(clone, newRange)) {
+                        //if not in another range then just add the range
+                        clone.push(newRange);
+                    } else {
+                        //find the first range which included the new range
+                        const rangeToUpdate = newClone.findIndex((filterValue) => {
+                            return newRange.max >= filterValue.min && newRange.max <= filterValue.max;
+                        });
+
+                        if (rangeToUpdate > - 1) {
+                            //as when using merge mode the begining point is always the min of the smallest range
+                            newClone[rangeToUpdate].min = newRange.min;
+                        }
                     }
-                });
-                //updating the last
-                if (cloneMap.length > 0) {
-                    //console.log("merging range");
-                    //console.log(cloneMap);
-                    cloneMap[cloneMap.length - 1].max = value.max;
                 }
             }
+            clone.sort(this._compareValues);
         });
-        //console.log(clone);
         return clone;
+    }
+
+    /**
+     * @ngdoc method
+     * @name inAnotherRange
+     * @methodOf talend.sunchoke.filter.model.abstract:ScFilter
+     * @param { string } filterValues the filter's values
+     * @param { object } range given range
+     * @description verify if the given range is included in an existing one
+     * @return { boolean } true if it exists in current ranges, otherwise false
+     */
+    inAnotherRange(filterValues, range) {
+        const rangeContainingValue = filterValues.filter((filterValue) => {
+            return range.min >= filterValue.min && range.max <= filterValue.max;
+        })
+
+        if (rangeContainingValue.length > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @ngdoc method
+     * @name stepsOnCurrentRanges
+     * @methodOf talend.sunchoke.filter.model.abstract:ScFilter
+     * @param { string } filterValues the filter's values
+     * @param { object } range given range
+     * @description verify if the given range is steps on an existing one
+     * @return { boolean } true if the given range steps in current ranges, otherwise false
+     */
+    stepsOnCurrentRanges(filterValues, range) {
+        const rangeContainingValue = filterValues.filter((filterValue) => {
+            return (range.min > filterValue.min  && range.min < filterValue.max) ||
+                (range.max < filterValue.max && range.max > filterValue.min);
+        })
+
+        if (rangeContainingValue.length > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @ngdoc method
+     * @name rangeContainingValue
+     * @methodOf talend.sunchoke.filter.model.abstract:ScFilter
+     * @param { string } filterValues the filter's values
+     * @param { object } range given range
+     * @description removes range which are included in the given range
+     */
+    removeDuplicateRange(filterValues, range) {
+        const rangeContainingValue = filterValues.filter((filterValue) => {
+            return filterValue.min >= range.max && filterValue.max > range.max;
+        });
+        return rangeContainingValue;
     }
 
     /**
@@ -91,7 +160,7 @@ export default class RangeFilter extends ScFilter {
      * @name setValues
      * @methodOf talend.sunchoke.filter.model:RangeFilter
      * @param newOptions the options for the new filter
-     * @description creates a new filter from the current one using the given options object
+     * @description creates a new filter from the current one usin²g the given options object
      * @return the new filter
      */
     setValues(newOptions) {
@@ -225,7 +294,7 @@ export default class RangeFilter extends ScFilter {
      * @description process the configuration for simple value filter
      */
     toggleFilterValues(values) {
-        const clone =  this.options.values.slice(0);
+        let clone =  this.options.values.slice(0);
 
         //looking for the given filter value in the current filter
         values.forEach((value) => {
@@ -238,33 +307,49 @@ export default class RangeFilter extends ScFilter {
                 clone.splice(index, 1);
             }
             //else we need to check if it's part of another existing range
-            else if(!this.inAnotherRange(clone, value)) {
-                clone.push(value);
+            else if(!this.stepsOnCurrentRanges(clone, value)) {
+                //find ranges where max = value.min or min = value.max
+                const previousRangeIndex = clone.findIndex((filterValue) => {
+                    return filterValue.max === value.min;
+                });
+                const nextRangeIndex = clone.findIndex((filterValue) => {
+                    return filterValue.min === value.max;
+                });
+
+                //if the given range is consecutive to an existing range (after or before), fuse them together
+                if (previousRangeIndex > - 1) {
+                    clone[previousRangeIndex].max = value.max;
+                }
+                if (nextRangeIndex > - 1) {
+                    clone[nextRangeIndex].min = value.min;
+                }
+
+                if (previousRangeIndex > - 1 && nextRangeIndex > - 1) {
+                    //merging the 3 ranges
+                    clone[previousRangeIndex].max = clone[nextRangeIndex].max;
+                    clone.splice(nextRangeIndex, 1);
+                }
+
+                else if (previousRangeIndex < 0 && nextRangeIndex < 0) {
+                    clone.push(value);
+                }
+            } else {
+                //in another range, split range into 2
+                if (this.inAnotherRange(clone, value)) {
+                    //find the first range which included the new range
+                    const rangeToUpdate = clone.findIndex((filterValue) => {
+                        return value.min >= filterValue.min && value.max <= filterValue.max;
+                    });
+                    const newRanges = [{min: clone[rangeToUpdate].min, max: value.min}, {min: value.max, max: clone[rangeToUpdate].max}];
+                    clone.splice(rangeToUpdate, 1);
+                    clone = clone.concat(newRanges);
+                }
+                //the else case would be that it steps in another range but without being in it
+                //which should be impossible ... so we ignore those cases
             }
+            clone.sort(this._compareValues);
         });
         return clone;
-    }
-
-    /**
-     * @ngdoc method
-     * @name inAnotherRange
-     * @methodOf talend.sunchoke.filter.model.abstract:ScFilter
-     * @param { string } filterValues the filter's values
-     * @param { object } range given range
-     * @description verify if the given range is included in an existing one
-     * @return { boolean } true if it exists in current ranges, otherwise false
-     */
-    inAnotherRange(filterValues, range) {
-        const rangeContainingValue = filterValues.filter((filterValue) => {
-            return (range.min >= filterValue.min && range.min <= filterValue.max)
-                || (range.max >= filterValue.min && range.min <= filterValue.max);
-        })
-
-        if (rangeContainingValue.length > 0) {
-            //console.log("in another range");
-            return true;
-        }
-        return false;
     }
 
     /**
