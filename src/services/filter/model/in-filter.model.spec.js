@@ -235,7 +235,6 @@ describe('IN filter model', () => {
             };
             const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
-            const currentFilter = [filter];
             const newConfiguration = {
                 fieldId: 'Col1',
                 fieldName: 'Col1',

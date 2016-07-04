@@ -244,7 +244,6 @@ describe('exact filter model', () => {
             };
             const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
-            const currentFilter = [filter];
             const newConfiguration = {
                 fieldId: 'Col1',
                 fieldName: 'Col1',

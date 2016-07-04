@@ -1,7 +1,6 @@
 import { FILTER_TYPE } from "../model/filter-const.js";
 import ExactFilter from "../model/exact-filter.model.js";
 import InFilter from "../model/in-filter.model.js";
-import EmptyFilter from "../model/empty-filter.model.js";
 
 export default class FilterModelFactory {
     constructor() {
@@ -23,7 +22,6 @@ export default class FilterModelFactory {
                 case FILTER_TYPE.CONTAINS:
                     break;
                 case FILTER_TYPE.EMPTY_FILTER:
-                    return new EmptyFilter(configuration.fieldId, configuration.fieldName, configuration.options);
                     break;
                 case FILTER_TYPE.EXACT:
                     //shouldn't be of size 0
