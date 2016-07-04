@@ -36,7 +36,7 @@ export default class FilterModelFactory {
                     break;
                     //return new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
                 case FILTER_TYPE.INSIDE_RANGE:
-                    return new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);;
+                    return new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
                 /*case FILTER_TYPE.INVALID_RECORDS:
                     return;
                 case FILTER_TYPE.MATCHES:
