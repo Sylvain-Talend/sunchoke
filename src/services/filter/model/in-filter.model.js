@@ -1,5 +1,5 @@
-import ExactFilter from './exact-filter.model.js';
-import { FILTER_TYPE } from "./filter-const.js";
+import ExactFilter from './exact-filter.model.js'; //eslint-disable-line no-unused-vars
+import { FILTER_TYPE } from "./filter-const.js"; //eslint-disable-line no-unused-vars
 import AbstractExactInFilter from "./abstract/exact-in-filter.model.js";
 
 /**
