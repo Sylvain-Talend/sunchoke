@@ -396,4 +396,30 @@ describe('exact filter model', () => {
         expect(result.options.values[0]).toBe("toto");
         expect(result.options.values[1]).toBe("tata");
     }));
+
+    describe('DSL actions', () => {
+        it('return filter in tql form', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: ["toto"]}
+            };
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+            expect(filter.toDSL()).toBe("(Col1='toto')");
+        }));
+
+        it('return filter in tql form is empty', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.EXACT,
+                options: {values: [""]}
+            };
+            const filter = new ExactFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+            expect(filter.toDSL()).toBe("(Col1 is empty)");
+        }));
+    });
 });

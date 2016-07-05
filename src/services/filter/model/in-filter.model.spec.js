@@ -377,4 +377,19 @@ describe('IN filter model', () => {
             expect(result.options.values[0]).toBe("toto");
         }));
     });
+
+    describe('DSL actions', () => {
+        it('return filter in tql form', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            expect(filter.toDSL()).toBe("(Col1 in ['toto', 'tata'])");
+        }));
+    });
 });

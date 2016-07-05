@@ -629,4 +629,18 @@ describe('range filter model', () => {
             expect(result).toBe(filter);
         }));
     });
+
+    describe('DSL actions', () => {
+        it('return filter in tql form', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.INSIDE_RANGE,
+                options: {values: [{min: 5, max: 10}, {min: 10, max: 30}, {min: 35, max: 40}]}
+            };
+            const filter = new RangeFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+            expect(filter.toDSL()).toBe("(Col1 between ['5', '10'] OR Col1 between ['10', '30'] OR Col1 between ['35', '40'])");
+        }));
+    });
 });

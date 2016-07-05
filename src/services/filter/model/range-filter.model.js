@@ -25,7 +25,6 @@ export default class RangeFilter extends ScFilter {
      */
     update(configuration) {
         if(configuration.fieldId === this.fieldId && configuration.type === FILTER_TYPE.INSIDE_RANGE) {
-
             //overwrite the filter with the current configuration values
             if (configuration.overwriteMode) {
                 return new RangeFilter(this.fieldId, this.fieldName, configuration.options);
@@ -39,11 +38,7 @@ export default class RangeFilter extends ScFilter {
                     configuration.options.values = newValue;
                 }
                 //if there's no value left
-                if (configuration.options.values.length === 0) {
-                    return null;
-                } else {
-                    return new RangeFilter(this.fieldId, this.fieldName, configuration.options);
-                }
+                return configuration.options.values.length === 0 ? null : new RangeFilter(this.fieldId, this.fieldName, configuration.options);
             }
         }
         //configuration doesn't concern the current filter
@@ -295,6 +290,22 @@ export default class RangeFilter extends ScFilter {
         }
     }
 
+    /**
+     * @ngdoc method
+     * @name toDSL
+     * @methodOf talend.sunchoke.filter.model:RangeFilter
+     * @description transform current object to string dsl
+     * @return { string }the string DSL representing the object
+     */
+    toDSL() {
+        let stringToReturn = '';
+        this.options.values.forEach((value, index) => {
+            stringToReturn+= this.fieldId + " between ['" + value.min + "', '" + value.max + "']";
+            index !== this.options.values.length - 1 ? stringToReturn+= ' OR ': '';
+        });
+        return "(" + stringToReturn + ")";
+    }
+
     /*getFilterFn() {
 
      }
@@ -304,10 +315,6 @@ export default class RangeFilter extends ScFilter {
      }
 
      static fromTree(subtree) {
-
-     }
-
-     toDSL() {
 
      }
 

@@ -9,8 +9,8 @@ import AbstractExactInFilter from "./abstract/exact-in-filter.model.js";
  */
 export default class ExactFilter extends AbstractExactInFilter {
 
-    constructor(fieldId, fieldName, options, editable) {
-        super(fieldId, fieldName, options, editable);
+    constructor(fieldId, fieldName, options) {
+        super(fieldId, fieldName, options, true);
         this.sign = '=';
     }
 
@@ -95,6 +95,19 @@ export default class ExactFilter extends AbstractExactInFilter {
             return this.addValue(value);
         }
     }
+
+    /**
+     * @ngdoc method
+     * @name toDSL
+     * @methodOf talend.sunchoke.filter.model:ExactFilter
+     * @description transform current object to string dsl
+     * @return { string } the string DSL representing the object
+     */
+    toDSL() {
+        return this.options.values[0] !== "" ?
+            "(" + this.fieldId + "='"+ this.options.values[0] +"')" :
+        "(" + this.fieldId + " is empty)";
+    }
     
     /*getFilterFn() {
         
@@ -105,10 +118,6 @@ export default class ExactFilter extends AbstractExactInFilter {
     }
     
     static fromTree(subtree) {
-        
-    }
-    
-    toDSL() {
         
     }
     
