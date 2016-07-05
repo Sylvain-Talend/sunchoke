@@ -219,13 +219,14 @@ export default class RangeFilter extends ScFilter {
         });
 
         if (updateIndex > - 1) {
-            const updatedValue = newValues.splice(updateIndex, 1);
+            const updatedValue = newValues.splice(updateIndex, 1)[0];
             updatedValue.min = newValue.min;
             updatedValue.max = newValue.max;
 
             //if the modified value is not included in other range then adding it
-            if (!this.inAnotherRange(this.options.values, updatedValue)) {
-                newValues.push(updatedValue);
+            if (!this.stepsOnCurrentRanges(newValues, updatedValue)) {
+                //add or merge the range
+                this.processMergeableRange(newValues, updatedValue);
                 //recreating an option object
                 const newOptions = {
                     ...options,
@@ -258,6 +259,42 @@ export default class RangeFilter extends ScFilter {
         return this.setValues(newOptions);
     }
 
+    /**
+     * @ngdoc method
+     * @name processMergeableRange
+     * @methodOf talend.sunchoke.filter.model:RangeFilter
+     * @param configuration the configuration to apply to the filter list
+     * @description process the given value to check if it can be merged with other ranges,
+     *              if not simply adds the range to the list
+     */
+    processMergeableRange(filterList, value) {
+        //find ranges where max = value.min or min = value.max
+        const previousRangeIndex = filterList.findIndex((filterValue) => {
+            return filterValue.max === value.min;
+        });
+        const nextRangeIndex = filterList.findIndex((filterValue) => {
+            return filterValue.min === value.max;
+        });
+
+        //if the given range is consecutive to an existing range (after or before), fuse them together
+        if (previousRangeIndex > - 1) {
+            filterList[previousRangeIndex].max = value.max;
+        }
+        if (nextRangeIndex > - 1) {
+            filterList[nextRangeIndex].min = value.min;
+        }
+
+        if (previousRangeIndex > - 1 && nextRangeIndex > - 1) {
+            //merging the 3 ranges
+            filterList[previousRangeIndex].max = filterList[nextRangeIndex].max;
+            filterList.splice(nextRangeIndex, 1);
+        }
+
+        else if (previousRangeIndex < 0 && nextRangeIndex < 0) {
+            filterList.push(value);
+        }
+    }
+
     /*getFilterFn() {
 
      }
@@ -285,7 +322,7 @@ export default class RangeFilter extends ScFilter {
     /**
      * @ngdoc method
      * @name toggleFilterValues
-     * @methodOf talend.sunchoke.filter.model.abstract:ScFilter
+     * @methodOf talend.sunchoke.filter.model:RangeFilter
      * @param configuration the configuration to apply to the filter list
      * @description process the configuration for simple value filter
      */
@@ -304,31 +341,7 @@ export default class RangeFilter extends ScFilter {
             }
             //else we need to check if it's part of another existing range
             else if(!this.stepsOnCurrentRanges(clone, value)) {
-                //find ranges where max = value.min or min = value.max
-                const previousRangeIndex = clone.findIndex((filterValue) => {
-                    return filterValue.max === value.min;
-                });
-                const nextRangeIndex = clone.findIndex((filterValue) => {
-                    return filterValue.min === value.max;
-                });
-
-                //if the given range is consecutive to an existing range (after or before), fuse them together
-                if (previousRangeIndex > - 1) {
-                    clone[previousRangeIndex].max = value.max;
-                }
-                if (nextRangeIndex > - 1) {
-                    clone[nextRangeIndex].min = value.min;
-                }
-
-                if (previousRangeIndex > - 1 && nextRangeIndex > - 1) {
-                    //merging the 3 ranges
-                    clone[previousRangeIndex].max = clone[nextRangeIndex].max;
-                    clone.splice(nextRangeIndex, 1);
-                }
-
-                else if (previousRangeIndex < 0 && nextRangeIndex < 0) {
-                    clone.push(value);
-                }
+                this.processMergeableRange(clone, value);
             } else {
                 //in another range, split range into 2
                 if (this.inAnotherRange(clone, value)) {

@@ -81,7 +81,7 @@ export default class FilterService {
                 return filter.addValue(newValue);
             }
             return nextFilter;
-        });
+        }).filter(filter => filter !== null);
     }
 
     /**
@@ -101,7 +101,7 @@ export default class FilterService {
                 return filter.updateValue(oldValue, newValue);
             }
             return nextFilter;
-        });
+        }).filter(filter => filter !== null);
     }
 
     /**
@@ -121,7 +121,7 @@ export default class FilterService {
                 return filter.removeValue(value);
             }
             return nextFilter;
-        });
+        }).filter(filter => filter !== null);
     }
 
     /**
@@ -141,7 +141,7 @@ export default class FilterService {
                 return filter.toggleValue(value);
             }
             return nextFilter;
-        });
+        }).filter(filter => filter !== null);
     }
 
     // triggered by other components

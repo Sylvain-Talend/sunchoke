@@ -299,6 +299,24 @@ describe('IN filter model', () => {
             expect(result.options.values[0]).toBe("tata");
         }));
 
+        it('should return the same filter cause the value to update does not exist', inject(function () {
+            //given
+            const configuration = {
+                fieldId: 'Col1',
+                fieldName: 'Col1',
+                type: FILTER_TYPE.IN,
+                options: {values: ["toto", "tata"]}
+            };
+            const filter = new InFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+            //when
+            const result = filter.updateValue("valueToUp", "bobo");
+
+            //then
+            expect(result instanceof InFilter).toBeTruthy();
+            expect(result).toBe(filter);
+        }));
+
         it('should update value current filter value', inject(function () {
             //given
             const configuration = {
