@@ -28,3 +28,18 @@
 
 * [Slidable](slidable/README.md)
     * [Documentation](slidable/documentation.md)
+
+* [Badge](badge/README.md)
+    * [Documentation](badge/documentation.md)
+
+* [Filter Bar](filter-bar/README.md)
+    * [Documentation](filter-bar/documentation.md)
+
+* [Filter item](filter-item/README.md)
+    * [Documentation](filter-item/documentation.md)
+
+* [Filter item value](filter-item-value/README.md)
+    * [Documentation](filter-item-value/documentation.md)
+
+* [Filter list](filter-list/README.md)
+    * [Documentation](filter-list/documentation.md)
