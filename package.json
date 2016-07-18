@@ -9,6 +9,7 @@
     "build": "gitbook build ./gitbook ./doc",
     "prestart": "npm run install:dep",
     "start": "gitbook serve ./gitbook",
+    "update": "gitbook update",
     "add:widget": "node cli/add-widget.js && npm start"
   },
   "repository": {
