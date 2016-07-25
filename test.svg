@@ -1,0 +1,16 @@
+<svg width="12px" height="14px" viewBox="283 215 12 14" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <path d="M285.777445,227.00851 C287.227279,227.00851 286.628389,227.00851 287.015783,226.488642 C287.015783,223.622974 288.538054,223.622974 288.538054,223.622974 C288.538054,223.622974 287.876754,223.202832 287.876754,221.531661 C287.876754,220.373745 288.1609,217.965117 291.476789,217.965117 C293.372705,217.965117 290.449,215.140724 287.015783,215.037689 C283.582566,214.934653 283.076565,217.799542 283.076565,220.184101 C283.076565,225.752466 282.739878,227.00851 285.777445,227.00851 Z" id="path-1"></path>
+    </defs>
+    <circle id="head-front" stroke="none" fill-rule="evenodd" cx="291.5" cy="221.5" r="2.5"></circle>
+    <ellipse id="body-front" stroke="none" fill-rule="evenodd" cx="291.5" cy="226.5" rx="3.5" ry="2.5"></ellipse>
+    <mask id="mask-2" fill="white"><use xlink:href="#path-1"></use></mask>
+    <g id="Mask" stroke="none" fill="none"></g>
+    <g id="behing" stroke="none" stroke-width="1" fill-rule="evenodd" mask="url(#mask-2)">
+        <g transform="translate(284.000000, 216.000000)">
+            <ellipse id="body-behind" cx="3.5" cy="7.5" rx="3.5" ry="2.5"></ellipse>
+            <circle id="head-behind" cx="3.5" cy="2.5" r="2.5"></circle>
+        </g>
+    </g>
+</svg>

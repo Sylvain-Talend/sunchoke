@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./dist/sunchoke.css">
+    <style>
+        .list-editor {
+            margin-top: 20px;
+        }
+
+        #demo {
+
+        }
+    </style>
+</head>
+
+<body ng-app="app">
+<div class="demo-top"></div>
+<div class="demo" id="demo" ng-controller="TestController as vm">
+    <div>
+        {{vm.testValue}}
+    </div>
+
+    <div>
+        <label>oldName</label>
+        <input ng-model="vm.oldName">
+        <label>newName</label>
+        <input ng-model="vm.newName">
+        <button ng-click="vm.api.renameItem(vm.oldName,vm.newName)">change that</button>
+    </div>
+
+    <div>
+        <label>item id</label>
+        <input ng-model="vm.itemId">
+        <button ng-click="vm.api.deleteItem(vm.itemId)">delete that</button>
+    </div>
+
+    <div ng-repeat="list in vm.listEditors|limitTo:1">
+        <sc-list-editor
+                api="vm.api"
+                delete-handler="vm.removeListId(list.id)"
+                delete-button-title="vm.deleteButtonTitle"
+                edit-button-title="vm.editButtonTitle"
+                groups="list.groups"
+                ng-model="vm.testValue"
+                placeholder="list.placeholder"
+                list-title="list.title"
+                title-placeholder="list.titlePlaceholder"
+                title-editable="list.titleEditable"
+                removable="list.removable"
+                validate-button-title="vm.validateButtonTitle"
+        >
+        </sc-list-editor>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+<script src="https://code.angularjs.org/1.5.5/angular-animate.js"></script>
+<script src="http://jacek-pulit.github.io/angular-elastic-input/javascripts/angular-elastic-input.min.js?v=2.4.0"></script>
+
+<script src="dist/sunchoke.js"></script>
+
+<script>
+    angular.module('app', ['talend.sunchoke', 'puElasticInput']);
+
+
+    function testController() {
+
+        this.editButtonTitle = "test edit";
+        this.deleteButtonTitle = "test delete";
+        this.validateButtonTitle = "test validate";
+
+        this.removeListId = function removeListId(id) {
+            for (var i = 0; i < this.listEditors.length; i++) {
+                if (this.listEditors[i].id === id) {
+                    this.listEditors.splice(i, 1);
+                    break;
+                }
+            }
+        };
+
+        this.listEditors = [
+            {
+                groups: [
+                    {
+                        icon: './test.svg',
+                        badgeBackgroundColor: '#266092',
+                        items: [
+                            {id: "id1", label: "Name 1"},
+                            {id: "id2", label: "Name 2"}
+                        ]
+                    },
+                    {
+                        items: [
+                            {id: "id3", label: "Name 3, Name 3, Name 3, Name 3"},
+                            {id: "id4", label: "test 4"},
+                            {id: "id5", label: "abc 5"},
+                            {id: "id6", label: "qqq 6"},
+                            {id: "id7", label: "item 7"},
+                            {id: "id8", label: "Name 8"},
+                            {id: "id9", label: "Name 9"},
+                            {id: "id10", label: "Name 10"},
+                            {id: "id11", label: "Name 11"},
+                            {id: "id12", label: "Name 12"},
+                            {id: "id13", label: "Name 13"},
+                            {id: "id14", label: "Name 14"}
+                        ]
+                    }
+                ],
+                id: 'editList1',
+                placeholder: "Add a steward",
+                title: "Validators yes !",
+                titlePlaceholder: "Role name",
+                titleEditable: true,
+                removable: true
+            },
+            {
+                group: [{icon: '../../../test.jpg'}],
+                id: 'editList2',
+                placeholder: "Add a steward",
+                title: "Validators 2",
+                titlePlaceholder: "Role name",
+                titleEditable: true,
+                removable: true
+            },
+            {
+                group: [{icon: '../../../test.jpg'}],
+                id: 'editList3',
+                placeholder: "Add a steward",
+                title: "Validators 2",
+                titlePlaceholder: "Role name",
+                titleEditable: true,
+                removable: true
+            },
+            {
+                group: [{icon: '../../../test.jpg'}],
+                id: 'editList4',
+                placeholder: "Add a steward",
+                title: "Validators 2",
+                titlePlaceholder: "Role name",
+                titleEditable: true,
+                removable: true
+            },
+            {
+                group: [{icon: '../../../test.jpg'}],
+                id: 'editList5',
+                placeholder: "Add a steward",
+                title: "Validators 2",
+                titlePlaceholder: "Role name",
+                titleEditable: true,
+                removable: true
+            }
+        ];
+
+    }
+
+    angular.module('app').controller('TestController', testController);
+</script>
+</body>
+</html>
