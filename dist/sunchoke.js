@@ -27406,7 +27406,7 @@ var ScListEditorCtrl = function () {
       this.editMode = false;
       this.selectedIds = [];
       this.ngModel = {
-        title: this.title,
+        listTitle: this.listTitle,
         items: this.selectedIds
       };
       this.api = {
