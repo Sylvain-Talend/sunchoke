@@ -98,7 +98,6 @@ export default class ScDatePickerCtrl {
 
                 // if a bad date has been provided
                 if (this.textErrorDate) {
-                    console.log('ta')
                     actualController.ngModel = this.textErrorDate;
                 }
                 else {
@@ -106,7 +105,8 @@ export default class ScDatePickerCtrl {
                     actualController.ngModel = this._d.getTime();
                 }
 
-                if (this.isFirstCall) {
+                //Close only if not init
+                if (!this.doNotCloseDp || this.doNotCloseDp === false) {
                     actualController.$timeout(() => {
                         actualController.onCloseFn();
                     });

@@ -428,6 +428,8 @@ import "moment";
         {
             var self = this,
                 opts = self.config(options);
+            self.doNotCloseDp = false;
+            self.textErrorDate = null;
 
             self._onMouseDown = function(e)
             {
@@ -532,7 +534,6 @@ import "moment";
             self._onInputChange = function(e)
             {
                 var date;
-                self.textErrorDate = null;
 
                 if (e.firedBy === self) {
                     return;
@@ -656,8 +657,8 @@ import "moment";
                 }
                 self._d = defDate;
 
-                // TODO check any regression
-                // this._o.onClose.call(this);
+                this.doNotCloseDp = true;
+                this._o.onClose.call(this);
 
             } else {
                 self.gotoDate(new Date());
@@ -1219,6 +1220,7 @@ import "moment";
                 addClass(this.el, 'is-hidden');
                 this._v = false;
                 if (v !== undefined && typeof this._o.onClose === 'function') {
+                    this.doNotCloseDp = false;
                     this._o.onClose.call(this);
                 }
             }
