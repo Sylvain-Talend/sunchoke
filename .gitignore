@@ -34,7 +34,6 @@ bower_components
 .node_repl_history
 
 # Build directory
-dist/
 
 # Documentation directory
 gitbook/
