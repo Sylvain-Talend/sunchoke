@@ -26,7 +26,7 @@ export default class PatternFilter extends ScFilter {
 	toDSL() {
 		let valueToString = '';
 		this.options.values.forEach((value, index) => {
-			const isLastIndex = index !== this.options.values.length - 1;
+			const isNotLastIndex = index !== this.options.values.length - 1;
 
 			if (value === '') {
 				valueToString += " " + this.fieldId + " is empty ";
@@ -34,7 +34,7 @@ export default class PatternFilter extends ScFilter {
 				valueToString += " " + this.fieldId + " complies '" + value + "'";
 			}
 
-			if (isLastIndex) {
+			if (isNotLastIndex) {
 				valueToString += " or ";
 			}
 		});

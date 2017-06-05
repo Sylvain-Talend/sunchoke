@@ -309,11 +309,24 @@ describe('Pattern filter model', () => {
 				fieldId: 'Col1',
 				fieldName: 'Col1',
 				type: FILTER_TYPE.PATTERN,
-				options: { values: ["toto", "tata"] }
+				options: { values: ['toto', 'tata'] }
 			};
 			const filter = new PatternFilter(configuration.fieldId, configuration.fieldName, configuration.options);
 
 			expect(filter.toDSL()).toBe("( Col1 complies 'tata' or  Col1 complies 'toto')");
+		}));
+
+		it('return filter in tql form', inject(function () {
+			//given
+			const configuration = {
+				fieldId: 'Col1',
+				fieldName: 'Col1',
+				type: FILTER_TYPE.PATTERN,
+				options: { values: [''] }
+			};
+			const filter = new PatternFilter(configuration.fieldId, configuration.fieldName, configuration.options);
+
+			expect(filter.toDSL()).toBe("( Col1 is empty )");
 		}));
 	});
 });
