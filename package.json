@@ -1,6 +1,6 @@
 {
   "name": "tds-sunchoke-new",
-  "version": "0.1.0-snapshot",
+  "version": "0.1.71-2",
   "description": "Talend front-end common widgets",
   "main": "index.js",
   "scripts": {
